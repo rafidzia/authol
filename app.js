@@ -1,6 +1,8 @@
-const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"]
-
-require("./getSchedule")((schedule) => {
+const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
+const get = require("./get");
+(async () => {
+    var schedule = await get("https://ethol.pens.ac.id/api/v1/schedules?user=17210&year=2019&semester=2&role=2")
+    var room = await get("https://ethol.pens.ac.id/api/v1/rooms?kuliah=[41656,41657,41658,41659,41660,41661,41662,41663,41664,41665,41666]")
     var savedSchedule = schedule
     var lastDay = ""
     var check = ()=>{
@@ -11,7 +13,14 @@ require("./getSchedule")((schedule) => {
             var startHour = parseInt(schedule[i].start.split(":")[0])
             var startMinute = parseInt(schedule[i].start.split(":")[1])
             if(now.getHours() < startHour || now.getMinutes() < startMinute) continue;
-            require("./postEthol")(schedule[i].room)
+            var data = {}
+            for(let j = 0; j < room.length; j++){
+                if(room[j].name == schedule[i].room){
+                    data.server = room[j].server
+                }
+            }
+            data.room = schedule[i].room
+            require("./postEthol")(data)
             schedule.splice(i, 1);
         }
         if(!lastDay.length) lastDay = now.getDay();
@@ -26,4 +35,4 @@ require("./getSchedule")((schedule) => {
            
     }
     check()
-})
+})()

@@ -9,14 +9,14 @@ createServer((req, res)=>{
 }).listen(8130)
 
 
-module.exports = (room) => {
+module.exports = (data) => {
     htmlOut = '<!DOCTYPE html>' +
     '<html><head><title>&hellip;</title>' +
     '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' +
     '<script type="text/javascript"> function dosubmit() { document.forms[0].submit(); } </script></head>'+
     '<body onload="dosubmit();">' +
-    '<form action="https://ethol.pens.ac.id/bbb/join5.php" method="POST">' +
-    '<input type="hidden" name="meeting" value="'+ room +'">' +
+    '<form action="https://ethol.pens.ac.id/bbb/join'+ data.server +'.php" method="POST">' +
+    '<input type="hidden" name="meeting" value="'+ data.room +'">' +
     '<input type="hidden" name="name" value="'+ config.name +'">' +
     '<input type="hidden" name="role" value="2">' +
     '</form></body> </html>';
