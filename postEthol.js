@@ -20,13 +20,15 @@ module.exports = (data) => {
     '<input type="hidden" name="name" value="'+ config.name +'">' +
     '<input type="hidden" name="role" value="2">' +
     '</form></body> </html>';
-    var command = "/mnt/c/Windows/system32/cmd.exe /c "
+    var command = ""
+    // command += "/mnt/c/Windows/system32/cmd.exe /c '"
     switch(config.browser){
-        case "edge" : command += "'start microsoft-edge:http://localhost:8130'"
+        case "edge" : command += "start microsoft-edge:http://localhost:8130"
         break
-        case "chrome" : command += "'start chrome http://localhost:8130'"
+        case "chrome" : command += "start chrome http://localhost:8130"
         break
     }
+    // command += "'"
     exec(command, (error, stdout, stderr)=>{
         if (error) {
             console.error(`exec error: ${error}`)
