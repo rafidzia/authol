@@ -34,7 +34,8 @@ module.exports = (data) => {
             console.error(`exec error: ${error}`)
             return;
         }
-        console.log(`stdout: ${stdout}`)
-        console.error(`stderr: ${stderr}`)
+        console.log("executing schedule..")
+        console.log(stdout)
+        console.error(stderr)
     })
 }
